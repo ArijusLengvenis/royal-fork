@@ -1,0 +1,36 @@
+<div id="main-content">    	
+    	<div class="container">
+    		<div class="row" id="congratulations">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <h2 class="gold">Congratulations!</h2>
+            <p>
+              Thank you {{one.creator}} for sharing: <span>{{one.title}}</span>!
+            </p>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="board">
+            <div id="myBoard" style="width: 50%"></div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <h2>{{one.first_move}} to move</h2>
+            <p>Rating: <span>{{one.rating}}</span>&nbsp;ELO</p>
+            <p class="mt-2">Starting position FEN: <span>{{one.fen}}</span>&nbsp;</p>
+          </div> 
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <hr>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <a href="/editor/">Click here to create and share another puzzle!</a>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <a href="/">Otherwise, click here to return to the forum!</a>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-5 text-center">
+            <form action="/api/puzzles/delete-puzzle/{{one.id}}" method="POST">
+              <button type="submit" value="Delete created puzzle">Lastly, if you are unhappy with the result, click here to delete it</button>
+              <p class="text-center"><span>*WARNING*</span> this cannot be undone</p>
+            </form>
+          </div>
+          <script>displayBoardImage('myBoard','{{one.fen}}', true, '{{first_move}}')</script>
+        </div>
+    	</div>
+    </div>

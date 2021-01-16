@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Royal Fork</title>
+        <meta name="description" content="A chess puzzle publishing and sharing forum.">
+        <link rel="shortcut icon" type="image/x-icon" href="/img/site/favicon.ico" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="/css/chessboard-1.0.0.min.css" rel="stylesheet">
+        <link href="/css/styles.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Varela+Round&display=swap" rel="stylesheet">
+        <script src="/js/index.js"></script>
+        <script src="/js/script.js"></script>
+        <script src="/js/conditionalRendering.js"></script>
+        <script src="/js/chessboard-1.0.0.min.js"></script>	
+        <script src="/js/chess.js/chess.js"></script>
+        <style type="text/css">
+          
+        </style>
+    </head>
+  <body>
+    <header>
+        <nav id="header-nav" class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <div class="navbar-header">
+                <a href="/" class="float-left d-none d-md-block">
+                    <div id="logo-img" alt="Logo image"></div>
+                </a>
+                <div class="navbar-brand">
+                    <a href="/">
+                    <div id="title">
+                        <h1>The Royal Fork</h1>
+                        <h6>A chess puzzle sharing forum</h6>
+                    </div>              	
+                    </a>
+                </div>
+                </div>
+
+                <div id="navbarSupportedContent">
+                
+                <ul id="nav-list" class="navbar-nav ml-auto">
+                </ul>
+                <script>navLoginCheck('{{user.username}}')</script>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    {{{body}}}
+
+<footer class="panel-footer">
+    <div class="container">
+      <div class="row">
+        <section id="hours" class="col-sm-6">
+          <span>What is <span>The Royal Fork?</span></span><br>
+          <p>
+          	A <span> Royal Fork</span> is a situation in chess when the opponent's
+          	King and Queen are attacked at the same time, ie forked.<br>
+          </p>
+          <hr class=".d-none .d-xl-block">
+        </section>
+        <section id="address" class="col-sm-6">
+       		<br>
+          <p>
+          	This website though was purposefully build to satisfy much more than <span> Royal Fork</span>
+          	related chess positions. Here everyone can share and learn from a variety of different chess postions
+          	that occur in this wonderful game.
+          </p>
+        </section>
+      </div>
+      <div class="text-center">Contact aryjeleng@gmail.com for further details.</div>
+      <div class="text-center">&copy; Copyright Arijus Lengvesnis, 2020</div>
+    </div>
+</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"
+        integrity="sha512-iceXjjbmB2rwoX93Ka6HAHP+B76IY1z0o3h+N1PeDtRSsyeetU3/0QKJqGyPJcX63zysNehggFwMC/bi7dvMig=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  </body>
+</html>

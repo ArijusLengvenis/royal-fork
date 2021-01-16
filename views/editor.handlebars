@@ -1,0 +1,60 @@
+<div id="main-content">     
+      <div class="container" id="editor">
+        <div class="row" id="seperator">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+              <p>
+                To assemble the initial position of the puzzle, you drag the pieces from the side of the board onto it. After that, press <span>Set Initial Position</span> and then you can do the move order that you wish the puzzle to have. 
+                When you are satisfied with the puzzle, press <span>Submit</span> and don't forget to rate it as well! Also, make sure to set the flags above <span>Set Initial Position</span> before clicking it!
+              </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 col-xxs-12 text-center">
+              <div id="changeBoard"><div id="boardEd" style="width: 75%"></div></div>
+          </div>
+          <div id="wall" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-xxs-12 text-center">
+            <div id="moves">
+              <h5>Game moves:</h5>
+              <div id="pgn"></div>
+            </div>
+            <div id="adjust">
+                <h5 id="progress">Create your board!</h5><br>
+                <div id="status"></div>
+            </div>
+          </div>
+          <div id="buttons" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxs-12">
+              <button id="clearBtn">Clear Board</button>
+              <button id="flip">Flip board position</button>
+              <span id="unsetBtn"></span>
+              <span id="undo"></span>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxs-12">
+            <div id="checkboxes" class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-xxs-12 mt-4">
+                <label for="first_to_move">First to move:&nbsp;</label>
+                <input id="first_to_move" name="first_to_move" type="checkbox" checked data-toggle="toggle" data-on="White" data-off="Black" data-onstyle="light" data-offstyle="dark"><br><br>
+                <label for="white-ks">White king side castle:&nbsp;</label>
+                <input id="white-ks" name="white-ks" type="checkbox" data-toggle="toggle" data-on="True" data-off="False" data-onstyle="success" data-offstyle="info"><br><br>
+                <label for="white-qs">White queen side castle:&nbsp;</label>
+                <input id="white-qs" name="white-qs" type="checkbox" data-toggle="toggle" data-on="True" data-off="False" data-onstyle="success" data-offstyle="info"><br><br>
+                <label for="black-ks">Black king side castle:&nbsp;</label>
+                <input id="black-ks" name="black-ks" type="checkbox" data-toggle="toggle" data-on="True" data-off="False" data-onstyle="success" data-offstyle="info"><br><br>
+                <label for="black-qs">Black queen side castle:&nbsp;</label>
+                <input id="black-qs" name="black-qs" type="checkbox" data-toggle="toggle" data-on="True" data-off="False" data-onstyle="success" data-offstyle="info"><br><br>
+            </div>
+            <form action="/api/puzzles/add-puzzle" method="POST">
+                <input class="d-none" name="creator" value="{{user.username}}">
+                <div id="success" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxs-12 text-center"></div>
+            </form>
+            <div id="buttons" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxs-12 text-left mt-0 pt-0">
+              <span id="setBtn"><button onClick="setPosition(window)">Set Initial Puzzle Position</button></span>
+            </div>
+            <script>
+              window.pos = "8/8/8/8/8/8/8/8 w - - 0 1";
+              window.orient = "white";
+              editorBoard(window.pos, window.orient, window);
+            </script>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>

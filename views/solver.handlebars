@@ -1,0 +1,96 @@
+<div id="main-content">    	
+    <div class="container" id="solver">
+        <div class="row" id="seperator">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-center">
+            <h4>{{one.title}}</h4>
+            <h4>Rated: {{one.rating}} ELO</h4>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+            <h6>by {{one.creator}}</h6>
+            <span id="checkUserDelete"></span>
+            <form class="d-none" id="deletion-form" action="/api/puzzles/delete-puzzle/{{one.id}}" method="POST">
+                <p>Are you sure you want to do this? <br> <span>It cannot be undone.</span></p>
+                <button type="submit" class="mb-3">Yes</button>
+            </form>
+            <button id="abort" class="d-none mb-3" onClick="deletionImminent()">No</button>
+            {{#if user}}
+                <script>loadDelButton('{{user.username}}', '{{one.creator}}')</script>
+            {{/if}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 col-xxs-12 text-center">
+            <div id="myBoard" style="width: 75%"></div>
+        </div>
+        <div id="wall" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 col-xxs-12 text-center">
+            <div id="moves">
+                <h5>Game moves:</h5>
+                <div id="pgn"></div>
+            </div>
+            <div id="adjust">
+                <h5 id="progress" class="">Make a Move!</h5><br>
+                <div id="status"></div>
+            </div>
+        </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 col-xxs-12 text-center">
+                <button id="hint" class="mt-4">Hint</button>
+                <button id="solve" onclick="doneContent('myBoard', '{{one.final_fen}}', true, '{{one.first_move}}', '{{one.id}}')" class="mt-4">Solve puzzle</button>
+            </div>
+            <div id="puzzle-solved" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <hr id="ruler-for-solved1" class="d-none">
+                <form action="/api/puzzles/{{one.id}}" method="POST">
+                    <input class="d-none" name="solver" id="solver" value="{{user.username}}">
+                    <button id="counterBtn" class="d-none" type="submit" value="Increase counter">Click here to return to the forum!</button>
+                </form>
+                <hr id="ruler-for-solved2" class="d-none">
+            </div>
+        </div>
+        <div id="comments" class="d-none col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <form action="/api/puzzles/add-comment/{{one.id}}" method="POST">
+                <label for="write_comment">Write a comment:</label><br>
+                <input type="text" size="53" name="write_comment" id="write_comment">
+                <input class="d-none" name="author" id="author" value="{{user.username}}">
+                <button type="submit" value="Add comment" class="mb-4">submit</button>
+            </form>
+            <script>
+                let id = '{{one.id}}';
+                let username = '{{user.username}}';
+            </script>
+            {{#if one.comments}}
+                {{#each one.comments}}
+                    <div id="full-comment">
+                        <div id="comment-author">by {{this.author}}:</div>
+                        <div id="comment" class="ml-3">{{this.comment}}</div>
+                        <div id="insertResponseUrl" class="undone"></div>
+                    </div>
+                    <script>
+                        insertResponseUrl(id, '{{this.id}}', username);
+                    </script>
+                    {{#each this}}
+                        {{#each this}}
+                            <div id="full-response" class="ml-5">
+                                <div id="response-author">Reply by {{this.author}}:</div>
+                                <div class="ml-3" id="response">{{this.response}}</div>
+                            </div>  
+                            {{/each}}
+                    {{/each}}
+            {{/each}}
+            {{else}}
+                <div>No comments have been written.</div>
+            {{/if}}
+        </div>
+        <script>
+            if (!{{done.done}}) {
+                let arr = [];
+                {{#each one.moves}}
+                    arr.push( {from: '{{this.from}}', to: '{{this.to}}', color: '{{this.color}}'} );
+                {{/each}}
+                window.orient = "white";
+                solver('{{one.fen}}', arr, '{{one.id}}');
+            }
+            else {
+                doneContent('myBoard', '{{one.final_fen}}', true, '{{one.first_move}}', '{{one.id}}');
+            }
+        </script>
+    </div>
+</div>

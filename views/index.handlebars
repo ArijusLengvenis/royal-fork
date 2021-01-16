@@ -1,0 +1,89 @@
+
+
+
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"> 
+                <div id="link-to-creator" class="text-center"></div>
+                <script>linkToEditor('{{user.username}}')</script>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4" id="index-settings"> 
+                <span class="dropdown">
+                    <button class="btn btn-secondary btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Puzzle sorting options
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" onClick="sortOption('none')">None</a>
+                        <a class="dropdown-item" onClick="sortOption('lrtg')">By rating: low to high</a>
+                        <a class="dropdown-item" onClick="sortOption('hrtg')">By rating: high to low</a>
+                        <a class="dropdown-item" onClick="sortOption('lpop')">By popularity: low to high</a>
+                        <a class="dropdown-item" onClick="sortOption('hpop')">By popularity: high to low</a>
+                    </div>
+                </span>
+                <form action="/" method="GET" id="filtering-options">
+                    <span><br>
+                        <span id="sortChoice"></span> <br>
+                        <label for="filterTitle">Filter by puzzle name:&nbsp;</label>
+                        <input type="text" size="21" id="filterTitle" name="filterTitle" placeholder="Title"><br>
+                        <label for="filterCreator">Filter by puzzle author:&nbsp;</label>
+                        <input type="text" size="21" id="filterCreator" name="filterCreator" placeholder="Creator"><br>
+                        <label for="filterRatingLow">Rating low:&nbsp;</label>&nbsp;
+                        <input type="text" size="3" id="filterRatingLow" name="filterRatingLow">
+                        <label for="filterRatingHigh">Rating high:&nbsp;</label>
+                        <input type="text" size="3" id="filterRatingHigh" name="filterRatingHigh">
+                        <hr>
+                    </span>
+                    <div id="advancedFilter"></div>
+                    <div><button id="sortBtn" type="submit" value="Sorting and Filtering">Set</button></div>
+                </form>
+                <script>advancedFilter('{{user.username}}')</script>
+            </div>
+        </div>
+    </div>
+    <script>let username = '{{user.username}}'</script>
+    {{#each puzzles_clone}} 
+    <div class="container" id="forum">
+        <a href="/solver/?id={{this.id}}" id="segment">
+            <div class="row undone defaultThread">
+                <div id="board" class="col-lg-4 col-md-4">
+                    <div id="{{this.id}}" style="width: 100%"></div>
+                </div>
+                <div id="thread" class="col-lg-4 col-md-4">
+                    <h4>{{this.title}}</h4>
+                    <h4 class="doneAdd"></h4>
+                </div>
+                <div id="thread" class="col-lg-4 col-md-4">
+                    <h5>by {{this.creator}}</h5>
+                    <hr class="d-lg-none">
+                </div>
+                <div id="bottom" class="col-lg-4 col-md-4">
+                    <h5>White to move</h5>
+                </div>
+                <div id="bottom" class="col-lg-4 col-md-4 mt-2">
+                    <span>rated: <span id="number"></span>{{this.rating}}</span> ELO
+                </div>
+                <div id="bottom" class="col-lg-4 col-md-4 mt-2 mb-2">
+                    <span>has been done: <span id="number">{{this.completed}}</span> times.</span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <script> 
+        displayBoardImage('{{this.id}}','{{this.fen}}');
+        solverss = [];
+        if (username) {            
+            {{#each this}}
+                if ('solvers' === '{{@key}}') {
+                    {{#each this}}
+                        solverss.push({ by: '{{this.by}}' });
+                    {{/each}}
+                }
+            {{/each}}
+            forumThreadCheck(username,'{{this.creator}}', solverss);
+        }
+        document.querySelector('.undone').classList.remove('undone');
+        document.querySelector('.doneAdd').classList.remove('doneAdd');
+    </script>
+    {{/each}}
+</div>
