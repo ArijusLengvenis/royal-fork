@@ -159,6 +159,10 @@ p span {
 	text-align: center;
 }
 
+#thread h5 {
+	text-decoration: underline;
+}
+
 #bottom {
 	margin: 0;
 	text-align: center;

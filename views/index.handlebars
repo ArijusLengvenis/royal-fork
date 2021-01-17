@@ -55,22 +55,22 @@
                 </div>
                 <div id="thread" class="col-lg-4 col-md-4">
                     <h5>by {{this.creator}}</h5>
-                    <hr class="d-lg-none">
+                    <hr class="d-md-none">
                 </div>
                 <div id="bottom" class="col-lg-4 col-md-4">
-                    <h5>White to move</h5>
+                    <h5>{{this.first_move}} to move</h5>
                 </div>
                 <div id="bottom" class="col-lg-4 col-md-4 mt-2">
-                    <span>rated: <span id="number"></span>{{this.rating}}</span> ELO
+                    <span>Rated: </span>{{this.rating}} ELO
                 </div>
                 <div id="bottom" class="col-lg-4 col-md-4 mt-2 mb-2">
-                    <span>has been done: <span id="number">{{this.completed}}</span> times.</span>
+                    <span>Has been done: {{this.completed}} times.</span>
                 </div>
             </div>
         </a>
     </div>
     <script> 
-        displayBoardImage('{{this.id}}','{{this.fen}}');
+        displayBoardImage('{{this.id}}','{{this.fen}}', false, '{{this.first_move}}');
         solverss = [];
         if (username) {            
             {{#each this}}
