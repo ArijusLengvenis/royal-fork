@@ -14,9 +14,19 @@ function displayBoardImage(board_name, fen, notation=false, orient="white") {
 
 //DISPLAY A BOARD WHERE PIECES CAN BE ADDED FROM THE SIDE
 
-function editorBoard(pos, orient, window) {
+function editorBoard(pos, orient, touch, window) {
     function onChange(oldPos, newPos) {
         window.pos = Chessboard.objToFen(newPos);
+    }
+
+    function onDragStart() {
+        if (touch) {
+            document.querySelector('body').classList.add('scroll');
+        }
+    }
+
+    function onDrop() {
+        document.querySelector('body').classList.remove('scroll');
     }
 
     let config = {
@@ -26,6 +36,8 @@ function editorBoard(pos, orient, window) {
         dropOffBoard: 'trash',
         sparePieces: true,
         onChange: onChange,
+        onDragStart: onDragStart,
+        onDrop: onDrop
     };
 
     let board = Chessboard("boardEd", config);
@@ -45,7 +57,7 @@ function editorBoard(pos, orient, window) {
 
 //DISPLAY A BOARD WHICH FOLLOWS CHESS RULES FOR SETTING UP PUZZLE MOVE ORDER AND STRUCTURE
 
-function moveMaker(pos, orient, window) {
+function moveMaker(pos, orient, touch, window) {
 
     let first = "";
     function oneTimeChange(newPos) {
@@ -97,10 +109,12 @@ function moveMaker(pos, orient, window) {
     let $status = $('#status');
     game.load(pos);   
     
-    
 
     function onDragStart (source, piece) {
         // do not pick up pieces if the game is over
+        if (touch) {
+            document.querySelector('body').classList.add('scroll');
+        }
         if (game.game_over()) return false;
 
         // only pick up pieces for the side to move
@@ -110,7 +124,8 @@ function moveMaker(pos, orient, window) {
             }
         }
 
-        function onDrop (source, target) {
+    function onDrop (source, target) {
+        document.querySelector('body').classList.remove('scroll');
         // see if the move is legal
             let move = game.move({
                 from: source,
@@ -238,26 +253,30 @@ function setPosition (window) {
     if (document.querySelector('#setBtn').innerHTML === '<button onclick="setPosition(window)">Set Initial Puzzle Position</button>') {
         document.querySelector('#checkboxes').classList.add('d-none');
         document.querySelector('#setBtn').textContent = "";
+        document.querySelector('#clearBtn').classList.add('d-none');
         document.querySelector('#unsetBtn').innerHTML = '<button onClick="setPosition(window)">Unset Initial Puzzle Position</button>';
         document.querySelector('#undo').innerHTML = '<button id="undoBtn" class="mt-2">Undo button</button>';
         document.querySelector('#changeBoard').innerHTML = '<div id="boardMo" style="width: 75%"></div>';
         document.querySelector('#progress').textContent = '';
-        document.querySelector('#success').innerHTML = '<label for="title">How would you like to name this puzzle?&nbsp;</label><input type="text" name="title" size="30" id="title">';
-        document.querySelector('#success').innerHTML += '&nbsp;<br><label for="rating">How would you rate this puzzle?</label><br class=".d-block .d-sm-none"> <input type="text" name="rating" size="3" id="rating">';
+        document.querySelector('#success').innerHTML = '<label for="title">How would you like to name this puzzle?&nbsp;</label><input class="mb-3" type="text" name="title" size="30" id="title">';
+        document.querySelector('#success').innerHTML += '&nbsp;<br><label for="rating">How would you rate this puzzle?</label><br class=".d-block .d-sm-none"> <input maxlength="4" class="mb-3" type="text" name="rating" size="4" id="rating">';
         document.querySelector('#success').innerHTML += '&nbsp;ELO<br><div id="history"></div><div id="submitStatus"><button type="submit" id="button-off" value="Send puzzle" disabled>submit</button><p>You have to make the <span>last move!</span></p></div>';
-        moveMaker(window.pos, window.orient, window);
+        document.querySelector('#touchHandler').innerHTML = "<script>document.getElementById('boardMo').addEventListener('touchstart', function onFirstTouch(event) {touch = true;console.log(touch)event.preventDefault();}, { passive: false });</script>";
+        moveMaker(window.pos, window.orient, touch, window);
     }
     else {
         document.querySelector('#setBtn').innerHTML = '<button onClick="setPosition(window)">Set Initial Puzzle Position</button>';
         document.querySelector('#unsetBtn').innerHTML = "";
         document.querySelector('#checkboxes').classList.remove('d-none');
         document.querySelector('#undo').innerHTML = "";
+        document.querySelector('#clearBtn').classList.remove('d-none');
         document.querySelector('#changeBoard').innerHTML = '<div id="boardEd" style="width: 75%"></div>';
         document.querySelector('#pgn').textContent = "";
         document.querySelector('#status').innerHTML = "";
         document.querySelector('#progress').textContent = "Create your board!";
         document.querySelector('#success').innerHTML = "";
-        editorBoard(window.pos, window.orient, window);
+        document.querySelector('#touchHandler').innerHTML = "<script>document.getElementById('boardEd').addEventListener('touchstart', function onFirstTouch(event) {touch = true;console.log(touch)event.preventDefault();}, { passive: false });</script>";
+        editorBoard(window.pos, window.orient, touch, window);
     }
 }
 
@@ -277,7 +296,7 @@ function doneContent(name, fen, bool, orient) {
 
 //DISPLAY A CHESS BOARD WHICH FOLLOWS CHESS RULES AND IS USED FOR SOLVING PROBLEMS
 
-function solver (initial_pos, moves, id) {
+function solver (initial_pos, moves, id, touch) {
     let s_idx = 0;
     let $board = $('#myBoard');
     let game = new Chess();
@@ -290,7 +309,10 @@ function solver (initial_pos, moves, id) {
     let $pgn = $('#pgn');
 
     function onDragStart (source, piece) {
-    // do not pick up pieces if the game is over
+        if (touch) {
+            document.querySelector('body').classList.add('scroll');
+        }
+        // do not pick up pieces if the game is over
         if (game.game_over()) return false;
 
         // only pick up pieces for the side to move
@@ -301,7 +323,8 @@ function solver (initial_pos, moves, id) {
     }
 
     function onDrop (source, target) {
-    // see if the move is legal
+        // see if the move is legal
+        document.querySelector('body').classList.remove('scroll');
         if (moves.length > s_idx) {
             if (source !== moves[s_idx].from || target !== moves[s_idx].to) {
                 if (source !== target) document.getElementById('progress').textContent = 'Incorrect Move!';

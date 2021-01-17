@@ -51,8 +51,16 @@
             <script>
               window.pos = "8/8/8/8/8/8/8/8 w - - 0 1";
               window.orient = "white";
-              editorBoard(window.pos, window.orient, window);
+              editorBoard(window.pos, window.orient, touch, window);
             </script>
+            <div id="touchHandler">
+              <script>
+                document.getElementById('boardEd').addEventListener('touchstart', function onFirstTouch(event) {
+                touch = true;
+                event.preventDefault();
+                }, { passive: false });
+                </script>
+            </div>
           </div>
           </div>
         </div>

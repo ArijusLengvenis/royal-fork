@@ -48,11 +48,16 @@
         <div id="comments" class="d-none col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <form action="/api/puzzles/add-comment/{{one.id}}" method="POST">
                 <label for="write_comment">Write a comment:</label><br>
-                <input type="text" size="53" name="write_comment" id="write_comment">
-                <input class="d-none" name="author" id="author" value="{{user.username}}">
+                <textarea cols="50" rows="4" name="write_comment" id="write_comment"></textarea>
+                <input class="d-none" name="author" id="author" value="{{user.username}}"><br>
                 <button type="submit" value="Add comment" class="mb-4">submit</button>
             </form>
             <script>
+                document.getElementById('myBoard').addEventListener('touchstart', function onFirstTouch(event) {
+                touch = true;
+                console.log(touch)
+                event.preventDefault();
+                }, { passive: false });
                 let id = '{{one.id}}';
                 let username = '{{user.username}}';
             </script>
@@ -86,7 +91,8 @@
                     arr.push( {from: '{{this.from}}', to: '{{this.to}}', color: '{{this.color}}'} );
                 {{/each}}
                 window.orient = "white";
-                solver('{{one.fen}}', arr, '{{one.id}}');
+                console.log(touch);
+                solver('{{one.fen}}', arr, '{{one.id}}', touch);
             }
             else {
                 doneContent('myBoard', '{{one.final_fen}}', true, '{{one.first_move}}', '{{one.id}}');

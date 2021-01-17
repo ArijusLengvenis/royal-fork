@@ -389,6 +389,12 @@ p span {
 	margin-top: 20px;
 }
 
+.scroll {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+}
 /* ERROR */
 
 #error {
@@ -446,6 +452,9 @@ p span {
 	#editor #moves h5 {
 		font-size: 2em;
 	}
+	#comments form button {
+		margin-left: 405px;
+	}
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -485,6 +494,9 @@ p span {
 
 	#editor #moves h5 {
 		font-size: 1.8em;
+	}
+	#comments form button {
+		margin-left: 405px;
 	}
 }
 
@@ -565,6 +577,10 @@ p span {
 		margin-top: 20px;
 		text-align: center;
 	}
+	#comments form button {
+		margin-left: 268px;
+	}
+
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -639,6 +655,10 @@ p span {
 	#solver h4 {
 		font-size: 20px;
 	}
+	#comments form {
+		text-align: center;
+		justify-content: center;
+	}
 }
 
 @media (max-width: 575px) {
@@ -671,10 +691,10 @@ p span {
 		font-size: 4vw;
 	}
 	#congratulations div:nth-child(1),  #congratulations div:nth-child(3) {
-		font-size: 2.2vw;
+		font-size: 2.5vw;
 	}
 	#congratulations div h2{
-		font-size: 2.2em;
+		font-size: 2.3em;
 	}
 	#congratulations a{
 		font-size: 12px;
@@ -692,6 +712,11 @@ p span {
 	body {
 	    font-size: 12px;
 	}
+	#comments form {
+		text-align: center;
+		justify-content: center;
+	}
+
 	#dropdownMenuButton {
 		font-size: 12px;
 	}
