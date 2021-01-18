@@ -1,6 +1,5 @@
 'use strict';
 
-const script = require('../../../client/js/script');
 const conditionalRendering = require('../../../client/js/conditionalRendering');
 const test_puzzles = require('../../../client/json/test_Puzzles');
 let puzzles = JSON.stringify(test_puzzles.puzzles_test);

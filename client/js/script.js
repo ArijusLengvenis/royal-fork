@@ -1,5 +1,7 @@
 'use strict';
 
+let touch = false;
+
 //DISPLAY IMAGE OF A CHESSBOARD
 
 function displayBoardImage(board_name, fen, notation=false, orient="white") {

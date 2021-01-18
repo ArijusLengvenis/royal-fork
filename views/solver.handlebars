@@ -48,7 +48,7 @@
         <div id="comments" class="d-none col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <form action="/api/puzzles/add-comment/{{one.id}}" method="POST">
                 <label for="write_comment">Write a comment:</label><br>
-                <textarea cols="50" rows="4" name="write_comment" id="write_comment"></textarea>
+                <textarea cols="50" rows="4" name="write_comment" id="write_comment" placeholder="This puzzle was awesome!"></textarea>
                 <input class="d-none" name="author" id="author" value="{{user.username}}"><br>
                 <button type="submit" value="Add comment" class="mb-4">submit</button>
             </form>
@@ -72,12 +72,14 @@
                         insertResponseUrl(id, '{{this.id}}', username);
                     </script>
                     {{#each this}}
-                        {{#each this}}
-                            <div id="full-response" class="ml-5">
-                                <div id="response-author">Reply by {{this.author}}:</div>
-                                <div class="ml-3" id="response">{{this.response}}</div>
-                            </div>  
+                        {{#if this}}
+                            {{#each this}}
+                                <div id="full-response" class="ml-5">
+                                    <div id="response-author">Reply by {{this.author}}:</div>
+                                    <div class="ml-3" id="response">{{this.response}}</div>
+                                </div>  
                             {{/each}}
+                        {{/if}}
                     {{/each}}
             {{/each}}
             {{else}}
