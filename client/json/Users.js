@@ -2,7 +2,8 @@ const users = [
     {
         id: 1,
         username: 'Arijus',
-        password: "Lengvenis"
+        password: "Lengvenis",
+        elo: 1337
     }
 ];
 

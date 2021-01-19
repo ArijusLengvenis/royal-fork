@@ -149,12 +149,15 @@ app.get('/solver/', (req, res) => {
 
 	//Initialize object which denotes if there exists a prompt (done) which says that the puzzle
 	//has been solved before.
-	let done = {};
+	let done = {
+		done: false,
+		counter: 'null'
+	};
 	if(req.query.done === "true") {
 		done.done = true;
-	}
-	else {
-		done.done = false;
+		if (req.query.counter) {
+			done.counter = parseInt(req.query.counter);
+		}
 	}
 
 	//Check if the id is valid.

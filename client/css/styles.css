@@ -83,7 +83,7 @@ p span {
 	line-height: .75;
 }
 
-.navbar-brand h6{
+.navbar-brand p{
 	color: #2e8500;
 	font-weight: bold;
 	text-transform: uppercase;
@@ -452,9 +452,6 @@ p span {
 	#editor #moves h5 {
 		font-size: 2em;
 	}
-	#comments form button {
-		margin-left: 405px;
-	}
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -484,10 +481,6 @@ p span {
 		font-size: 1.3em;
 	}
 
-	#moves {
-		height: 80%;
-	}
-
 	#solver h5, #editor h5 {
 		font-size: 1.5em;
 	}
@@ -495,8 +488,8 @@ p span {
 	#editor #moves h5 {
 		font-size: 1.8em;
 	}
-	#comments form button {
-		margin-left: 405px;
+	.form-control {
+		font-size: 16px;
 	}
 }
 
@@ -526,7 +519,9 @@ p span {
 	#nav-list #nav-reg-bg {
 	  margin: 5px 0 0 0;
 	}
-
+	#nav-list #nav-reg-bg a{
+	  padding: 3px;
+	}
 	.navbar-brand {
 		padding-top: 0;
 		margin-top: 0;
@@ -547,10 +542,6 @@ p span {
 	}
 	#pgn{
 		font-size: 1.1em;
-	}
-
-	#moves {
-		height: 80%;
 	}
 
 	#solver h5 , #editor h5 {
@@ -577,10 +568,9 @@ p span {
 		margin-top: 20px;
 		text-align: center;
 	}
-	#comments form button {
-		margin-left: 268px;
+	.form-control {
+		font-size: 12px;
 	}
-
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -598,6 +588,9 @@ p span {
 		font-size: 1.3em;
 	}
 	#error div a {
+		font-size: 12px;
+	}
+	.form-control {
 		font-size: 12px;
 	}
 	#nav-list #nav-reg-bg {
@@ -619,9 +612,6 @@ p span {
 	}
 	#congratulations button{
 		font-size: 16px;
-	}
-	#moves {
-		height: 75%;
 	}
 	#solver #adjust h5 {
 		font-size: 1.9vw;
@@ -659,6 +649,9 @@ p span {
 		text-align: center;
 		justify-content: center;
 	}
+	#eloChange {
+		font-size: 0.7em;
+	}
 }
 
 @media (max-width: 575px) {
@@ -679,10 +672,10 @@ p span {
 		font-size: 12px;
 	}
 	#title h1 {
-		font-size: 6vw;
+		font-size: 5.5vw;
 	}
-	#title h6 {
-		font-size: 2vw;
+	#title p {
+		font-size: 2.75vw;
 	}
 	.col-xxs-12 {
 		width: 100%;
@@ -726,5 +719,8 @@ p span {
 	}
 	#solver h4 {
 		font-size: 20px;
+	}
+	.form-control {
+		font-size: 12px;
 	}
 }

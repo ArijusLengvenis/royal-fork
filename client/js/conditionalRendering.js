@@ -217,7 +217,7 @@ function forumThreadCheck(username, creator, solvers) {
 
 //LOG IN BUTTONS OR GREETING
 
-function navLoginCheck(username) {
+function navLoginCheck(username, elo) {
     if (!username) {
         let message = '<li class="nav-item">';
         message += '<div  id="nav-reg-bg">';
@@ -229,7 +229,7 @@ function navLoginCheck(username) {
         
     }
     else {
-        document.getElementById('nav-list').innerHTML = `<li class="nav-item"><div id="nav-reg-bg"><p id="user-online"><a href="/?creatorOptions=true">Hello ${username}!</a></p></div></li><li class="nav-item"><div id="nav-reg-bg"><a href="/logout/" class="nav-link"><span id="nav-reg">Log out</span></a></div></li></li>`;       
+        document.getElementById('nav-list').innerHTML = `<li class="nav-item"><div class="text-left" id="nav-reg-bg"><p id="user-online"><a href="/?creatorOptions=true">Hello ${username}!<br>&nbsp;Rated: <span>${elo}</span> ELO</a></p></div></li><li class="nav-item mt-3"><div id="nav-reg-bg"><a href="/logout/" class="nav-link"><span id="nav-reg">Log out</span></a></div></li></li>`;       
     }
 }
 

@@ -13,9 +13,6 @@
                 <button type="submit" class="mb-3">Yes</button>
             </form>
             <button id="abort" class="d-none mb-3" onClick="deletionImminent()">No</button>
-            {{#if user}}
-                <script>loadDelButton('{{user.username}}', '{{one.creator}}')</script>
-            {{/if}}
         </div>
     </div>
     <div class="row">
@@ -31,33 +28,30 @@
                 <h5 id="progress" class="">Make a Move!</h5><br>
                 <div id="status"></div>
             </div>
+            <div class="mt-5" id="eloChange"></div>
         </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 col-xxs-12 text-center">
                 <button id="hint" class="mt-4">Hint</button>
-                <button id="solve" onclick="doneContent('myBoard', '{{one.final_fen}}', true, '{{one.first_move}}', '{{one.id}}')" class="mt-4">Solve puzzle</button>
+                <button id="solve" onclick="doneContent('myBoard', '{{one.final_fen}}', '{{one.id}}', '{{one.pgn}}', true, '{{one.first_move}}', '{{user.username}}', true, true, {{done.counter}}, false)" class="mt-4">Solve puzzle</button>
             </div>
             <div id="puzzle-solved" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 <hr id="ruler-for-solved1" class="d-none">
-                <form action="/api/puzzles/{{one.id}}" method="POST">
-                    <input class="d-none" name="solver" id="solver" value="{{user.username}}">
-                    <button id="counterBtn" class="d-none" type="submit" value="Increase counter">Click here to return to the forum!</button>
+                <form action="/" method="GET">
+                    <button id="counterBtn" class="d-none">Click here to return to the forum!</button>
                 </form>
                 <hr id="ruler-for-solved2" class="d-none">
+                <div id="changeElo"></div>
             </div>
         </div>
         <div id="comments" class="d-none col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <form action="/api/puzzles/add-comment/{{one.id}}" method="POST">
                 <label for="write_comment">Write a comment:</label><br>
-                <textarea cols="50" rows="4" name="write_comment" id="write_comment" placeholder="This puzzle was awesome!"></textarea>
+                <textarea class="form-control" cols="50" rows="4" name="write_comment" id="write_comment" placeholder="This puzzle was awesome!"></textarea>
                 <input class="d-none" name="author" id="author" value="{{user.username}}"><br>
-                <button type="submit" value="Add comment" class="mb-4">submit</button>
+                <div class='text-right'><button type="submit" value="Add comment" class="mb-4">submit</button></div>
+                
             </form>
             <script>
-                document.getElementById('myBoard').addEventListener('touchstart', function onFirstTouch(event) {
-                touch = true;
-                console.log(touch)
-                event.preventDefault();
-                }, { passive: false });
                 let id = '{{one.id}}';
                 let username = '{{user.username}}';
             </script>
@@ -92,13 +86,35 @@
                 {{#each one.moves}}
                     arr.push( {from: '{{this.from}}', to: '{{this.to}}', color: '{{this.color}}'} );
                 {{/each}}
-                window.orient = "white";
-                console.log(touch);
-                solver('{{one.fen}}', arr, '{{one.id}}', touch);
+                window.orient = '{{one.first_move}}';
+                let notSolvedBy = true;
+                let notSamePerson = true;
+                if ('{{user.username}}' === '{{one.creator}}' || !'{{user.username}}') notSamePerson = false;
+                {{#each one}}
+                    {{#if this}}
+                        if ('solvers' === '{{@key}}') {
+                            {{#each this}}
+                                if (username === '{{this.by}}') {
+                                    notSolvedBy = false;
+                                }
+                            {{/each}}
+                        }
+                    {{/if}}
+                {{/each}}
+                
+                eloChanger(3, '{{user.username}}', '{{user.elo}}', '{{one.id}}', {{one.rating}});
+                solver('{{one.fen}}', arr, '{{one.id}}', '{{one.pgn}}', touch, '{{user.username}}', notSolvedBy, notSamePerson);
             }
             else {
-                doneContent('myBoard', '{{one.final_fen}}', true, '{{one.first_move}}', '{{one.id}}');
+                doneContent('myBoard', '{{one.final_fen}}', '{{one.id}}', '{{one.pgn}}', true, '{{one.first_move}}', '{{user.username}}', true, true, {{done.counter}}, false, {{user.elo}});
             }
+            {{#if user}}
+                loadDelButton('{{user.username}}', '{{one.creator}}')
+            {{/if}}
+            document.getElementById('myBoard').addEventListener('touchstart', function onFirstTouch(event) {
+            touch = true;
+            event.preventDefault();
+            }, { passive: false });
         </script>
     </div>
 </div>

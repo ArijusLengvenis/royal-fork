@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,6 @@
         <link href="/css/styles.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Varela+Round&display=swap" rel="stylesheet">
-        <script src="/js/index.js"></script>
         <script src="/js/script.js"></script>
         <script src="/js/conditionalRendering.js"></script>
         <script src="/js/chessboard-1.0.0.min.js"></script>	
@@ -31,7 +30,7 @@
                     <a href="/">
                     <div id="title">
                         <h1>The Royal Fork</h1>
-                        <h6>A chess puzzle sharing forum</h6>
+                        <p>A chess puzzle sharing forum</p>
                     </div>              	
                     </a>
                 </div>
@@ -39,9 +38,7 @@
 
                 <div id="navbarSupportedContent">
                 
-                <ul id="nav-list" class="navbar-nav ml-auto">
-                </ul>
-                <script>navLoginCheck('{{user.username}}')</script>
+                <ul id="nav-list" class="navbar-nav ml-auto"></ul>
                 </div>
             </div>
         </nav>
@@ -64,16 +61,17 @@
        		<br>
           <p>
           	This website though was purposefully build to satisfy much more than <span> Royal Fork</span>
-          	related chess positions. Here everyone can share and learn from a variety of different chess postions
+          	related chess positions. Here everyone can share and learn from a variety of different chess positions
           	that occur in this wonderful game.
           </p>
         </section>
       </div>
       <div class="text-center">Contact aryjeleng@gmail.com for further details.</div>
-      <div class="text-center">&copy; Copyright Arijus Lengvesnis, 2020</div>
+      <div class="text-center">&copy; Copyright Arijus Lengvenis, 2020</div>
     </div>
 </footer>
-
+    <script>navLoginCheck('{{user.username}}', '{{user.elo}}')</script>
+    <script src="/js/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"
         integrity="sha512-iceXjjbmB2rwoX93Ka6HAHP+B76IY1z0o3h+N1PeDtRSsyeetU3/0QKJqGyPJcX63zysNehggFwMC/bi7dvMig=="
         crossorigin="anonymous"></script>

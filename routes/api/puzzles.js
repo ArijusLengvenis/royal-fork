@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const puzzles = require('../../client/json/Puzzles');
 
-let p_idx = 6;
+let p_idx = puzzles.length + 1;
 
 //create a puzzle
 router.post('/add-puzzle', function(req, res) {
@@ -22,6 +22,7 @@ router.post('/add-puzzle', function(req, res) {
         title: req.body.title || `Puzzle #${p_idx}`,
         creator: req.body.creator,
         fen: req.body.fen,
+        pgn: req.body.pgn,
         final_fen: req.body.final_fen,
         first_move: req.body.first,
         rating: parseInt(req.body.rating),
@@ -43,7 +44,7 @@ router.post('/add-puzzle', function(req, res) {
         error.msg = "Please log in!";
         return res.status(403).render('error', { error: error });
     }
-    if (!newPuzzle.fen || !newPuzzle.final_fen || !newPuzzle.first_move) {
+    if (!newPuzzle.fen || !newPuzzle.final_fen || !newPuzzle.first_move || !newPuzzle.pgn) {
         error.msg = "Invalid position!";
         return res.status(400).render('error', { error: error });
     }
@@ -98,36 +99,61 @@ router.post('/delete-puzzle/:id', function(req, res) {
 		}
 })
 
+//update solvers
+router.post('/counter/', function(req, res) {
+    let error = {
+        msg: "empty error",
+        url: `/solver/?id=${req.query.id}`
+    };
+    let newSolver = {
+        by: req.query.solver
+    }
+
+    const found = puzzles.some(puzzle => puzzle.id === parseInt(req.query.id));
+
+	if (found) {
+        for (let i = 0; i < puzzles.length; i++) {
+            if (puzzles[i].id === parseInt(req.query.id)) {
+                if (puzzles[i].completed < 10000000) puzzles[i].completed++;
+                if (newSolver.by && newSolver.by !== puzzles[i].creator) {
+                    const found_solver = puzzles[i].solvers.some(solver => solver.by === newSolver.by);
+                    if (!found_solver) puzzles[i].solvers.push(newSolver);
+                }
+                res.redirect(`/solver/?id=${req.query.id}&done=true&counter=${req.query.counter}`);
+                break;
+            }
+        }      
+	}
+	else {
+		error.msg = `No puzzle with the id ${parseInt(req.query.id)}!`;
+        return res.status(400).render('error', { error: error });
+	}
+});
+
 //update counter
-router.post('/:id', function(req, res) {
+router.post('/incr/:id', function(req, res) {
     let error = {
         msg: "empty error",
         url: `/solver/?id=${req.params.id}`
     };
-    let newSolver = {
-        by: req.body.solver
-    }
 
     const found = puzzles.some(puzzle => puzzle.id === parseInt(req.params.id));
 
 	if (found) {
         for (let i = 0; i < puzzles.length; i++) {
             if (puzzles[i].id === parseInt(req.params.id)) {
-                puzzles[i].completed++;
-                if (newSolver.by && newSolver.by !== puzzles[i].creator) {
-                    const found_solver = puzzles[i].solvers.some(solver => solver.by === newSolver.by);
-                    if (!found_solver) puzzles[i].solvers.push(newSolver);
-                }
-                res.redirect('/');
+                if (puzzles[i].completed < 10000000) puzzles[i].completed++;
+                res.redirect(`/solver/?id=${req.params.id}&done=true`);
                 break;
             }
         }      
 	}
 	else {
 		error.msg = `No puzzle with the id ${parseInt(req.params.id)}!`;
-            return res.status(400).render('error', { error: error });
+        return res.status(400).render('error', { error: error });
 	}
 });
+
 
 //add comment
 router.post('/add-comment/:id', function(req, res) {
