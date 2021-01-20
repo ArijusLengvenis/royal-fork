@@ -111,6 +111,20 @@ describe("Test the solver page", () => {
         });
     });
 
+    test("It should response the GET method for a solved specific puzzle", done => {
+        request(app).get("/solver/?id=2&done=true").then(response => {
+            expect(response.statusCode).toBe(200);
+            done();
+        });
+    });
+
+    test("It should response the GET method for a solved specific puzzle with an elo counter", done => {
+        request(app).get("/solver/?id=2&done=true&counter=15").then(response => {
+            expect(response.statusCode).toBe(200);
+            done();
+        });
+    });
+
     test("It should throw an error, because the puzzle does not exist", done => {
         request(app).get("/solver/?id=500").then(response => {
             expect(response.statusCode).toBe(404);
@@ -119,7 +133,21 @@ describe("Test the solver page", () => {
     });
 
     test("It should response the POST method for incrementing the completed variable of a specific puzzle", done => {
-        request(app).post("/api/puzzles/2").then(response => {
+        request(app).post("/api/puzzles/incr/2").then(response => {
+            expect(response.statusCode).toBe(302);
+            done();
+        });
+    });
+
+    test("It should throw an error, because the puzzle does not exist", done => {
+        request(app).post("/api/puzzles/incr/500").then(response => {
+            expect(response.statusCode).toBe(400);
+            done();
+        });
+    });
+
+    test("It should response the POST method for incrementing the completed variable of a specific puzzle", done => {
+        request(app).post("/api/puzzles/solvers/?id=2&solver=Ari&counter=15").then(response => {
             expect(response.statusCode).toBe(302);
             done();
         });
@@ -127,7 +155,7 @@ describe("Test the solver page", () => {
 
     test("It should throw an error, because the puzzle does not exist", done => {
         request(app).post("/api/puzzles/500").then(response => {
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(404);
             done();
         });
     });
@@ -231,6 +259,7 @@ describe("Test the editor page", () => {
             title: '',
             creator: 'Arijus Lengvenis',
             fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            pgn: '1. Rxd7+ Qxd7 <br> 2. Rxd7+',
             final_fen: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
             first: 'white',
             rating: '1500',
@@ -246,6 +275,7 @@ describe("Test the editor page", () => {
             title: '',
             creator: '',
             fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            pgn: '1. Rxd7+ Qxd7 <br> 2. Rxd7+',
             final_fen: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
             first: 'white',
             rating: '1500',
@@ -261,6 +291,7 @@ describe("Test the editor page", () => {
             title: '',
             creator: 'Arijus Lengvenis',
             fen: '',
+            pgn: '1. Rxd7+ Qxd7 <br> 2. Rxd7+',
             final_fen: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
             first: 'white',
             rating: '1500',
@@ -276,6 +307,7 @@ describe("Test the editor page", () => {
             title: '',
             creator: 'Arijus Lengvenis',
             fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            pgn: '1. Rxd7+ Qxd7 <br> 2. Rxd7+',
             final_fen: '',
             first: 'white',
             rating: '1500',
@@ -291,6 +323,7 @@ describe("Test the editor page", () => {
             title: '',
             creator: 'Arijus Lengvenis',
             fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            pgn: '1. Rxd7+ Qxd7 <br> 2. Rxd7+',
             final_fen: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
             first: '',
             rating: '1500',
@@ -306,6 +339,7 @@ describe("Test the editor page", () => {
             title: '',
             creator: 'Arijus Lengvenis',
             fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            pgn: '1. Rxd7+ Qxd7 <br> 2. Rxd7+',
             final_fen: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
             first: 'white',
             rating: '',
@@ -321,6 +355,7 @@ describe("Test the editor page", () => {
             title: '',
             creator: 'Arijus Lengvenis',
             fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            pgn: '1. Rxd7+ Qxd7 <br> 2. Rxd7+',
             final_fen: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
             first: 'white',
             rating: '1500',
@@ -336,6 +371,23 @@ describe("Test the editor page", () => {
             title: '',
             creator: 'Arijus Lengvenis',
             fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            pgn: '1. Rxd7+ Qxd7 <br> 2. Rxd7+',
+            final_fen: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
+            first: 'white',
+            rating: '1500',
+            history: '[{"color":"w","from":"e2","to":"e4","flags":"b","piece":"p","san":"e4"},{"color":"b","from":"e7","to":"e5","flags":"b","piece":"p","san":"e5"}]'
+        }).then(response => {
+            expect(response.statusCode).toBe(400);
+            done();
+        });
+    });
+
+    test("It should throw an error because the pgn is invalid", done => {
+        request(app).post("/api/puzzles/add-puzzle/").send({
+            title: '',
+            creator: 'Arijus Lengvenis',
+            fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+            pgn: '',
             final_fen: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 1',
             first: 'white',
             rating: '1500',

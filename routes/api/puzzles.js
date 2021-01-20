@@ -99,8 +99,8 @@ router.post('/delete-puzzle/:id', function(req, res) {
 		}
 })
 
-//update solvers
-router.post('/counter/', function(req, res) {
+//update solvers and counter
+router.post('/solvers/', function(req, res) {
     let error = {
         msg: "empty error",
         url: `/solver/?id=${req.query.id}`

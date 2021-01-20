@@ -148,7 +148,7 @@ app.get('/', (req, res) => {
 app.get('/solver/', (req, res) => {
 
 	//Initialize object which denotes if there exists a prompt (done) which says that the puzzle
-	//has been solved before.
+	//has been solved before and if tthere is an ELO counter - store it there as well.
 	let done = {
 		done: false,
 		counter: 'null'

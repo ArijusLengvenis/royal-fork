@@ -284,6 +284,7 @@ function moveMaker(pos, orient, touch, window) {
     };
     
     boardMo = Chessboard('boardMo', config);
+    $(window).resize(boardMo.resize);
 
     updateStatus();
 
@@ -315,9 +316,9 @@ function setPosition (window) {
         document.querySelector('#undo').innerHTML = '<button id="undoBtn" class="mt-2">Undo button</button>';
         document.querySelector('#changeBoard').innerHTML = '<div id="boardMo" style="width: 75%"></div>';
         document.querySelector('#progress').textContent = '';
-        document.querySelector('#success').innerHTML = '<label for="title">How would you like to name this puzzle?&nbsp;</label><input class="mb-3" type="text" name="title" size="30" id="title">';
+        document.querySelector('#success').innerHTML = '<label for="title">How would you like to name this puzzle?</label><br><input class="mb-3" type="text" name="title" size="50" id="title">';
         document.querySelector('#success').innerHTML += '&nbsp;<br><label for="rating">How would you rate this puzzle?</label><br class=".d-block .d-sm-none"> <input maxlength="4" class="mb-3" type="text" name="rating" size="4" id="rating">';
-        document.querySelector('#success').innerHTML += '&nbsp;ELO<br><div id="history"></div><div id="submitStatus"><button type="submit" id="button-off" value="Send puzzle" disabled>submit</button><p>You have to make the <span>last move!</span></p></div>';
+        document.querySelector('#success').innerHTML += '&nbsp;ELO<br><div id="history"></div><div id="submitStatus"><button class="mt-4" type="submit" id="button-off" value="Send puzzle" disabled>submit</button><p><span>Note:</span> You have to make the <span>last move!</span></p></div>';
         document.querySelector('#touchHandler').innerHTML = "<script>document.getElementById('boardMo').addEventListener('touchstart', function onFirstTouch(event) {touch = true;event.preventDefault();}, { passive: false });</script>";
         moveMaker(window.pos, window.orient, touch, window);
     }

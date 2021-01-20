@@ -193,7 +193,7 @@ function insertResponseUrl(puzzleid, commentid, username) {
 
 function responseText(puzzleid, commentid, id, username) {
     id = "." + id;
-    document.querySelector(`${id}`).innerHTML = `<form action="/api/puzzles/comment/add-response" method="POST"><input type="text" name="response" size="53"><input class="d-none" name="puzzleid" value="${puzzleid}"><input class="d-none" name="commentid" value="${commentid}"><input class="d-none" name="author" value="${username}">&nbsp;<button type="submit" value="Reply to comment">Reply</button></form>`;
+    document.querySelector(`${id}`).innerHTML = `<form action="/api/puzzles/comment/add-response" method="POST"><textarea class="form-control mt-2" rows="2" name="response" placeholder="I know, right?"></textarea><input class="d-none" name="puzzleid" value="${puzzleid}"><input class="d-none" name="commentid" value="${commentid}"><input class="d-none" name="author" value="${username}">&nbsp;<button class="mt-2 mb-2 ml-2" type="submit" value="Reply to comment">Reply</button></form>`;
 }
 
 //FORUM THREAD BACKGROUND COLOUR CHANGER
@@ -245,17 +245,6 @@ function linkToEditor (username) {
     }
 }
 
-//WHILE REGISTERING ASK FOR PASSWORD AGAIN
-
-function register(bool) {
-    if (bool) {
-        document.getElementById('register').innerHTML = '<label for="password2">Repeat password:&nbsp;</label><input type="password" id="password2" name="password2"><br>';
-    }
-    else {
-        document.getElementById('register').textContent = "";
-    }
-}
-
 exports.sortOption = sortOption;
 exports.advancedFilter = advancedFilter;
 exports.partitionIndex = partitionIndex;
@@ -266,4 +255,3 @@ exports.responseText = responseText;
 exports.forumThreadCheck = forumThreadCheck;
 exports.navLoginCheck = navLoginCheck;
 exports.linkToEditor = linkToEditor;
-exports.register = register;

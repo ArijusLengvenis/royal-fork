@@ -33,9 +33,10 @@ router.post('/', function(req, res) {
     })
 
     users.push(newUser);
-    res.redirect('/login');
+    res.redirect('/login/');
 });
 
+//Update ELO rating after solving a puzzle
 router.post('/elo/', function(req, res) {
     let error = {
         msg: "empty error",
@@ -58,8 +59,9 @@ router.post('/elo/', function(req, res) {
         for (let i = 0; i < users.length; i++) {
             if (users[i].username === req.body.username) {
                 users[i].elo += parseInt(req.body.elo);
+                //Send a request to the puzzles API to save the solver username as well as increment the completed counter
                 let clientServerOptions = {
-                    uri: `http://localhost:5000/api/puzzles/counter/?id=${req.body.puzzleid}&solver=${req.body.username}&counter=${req.body.elo}`,
+                    uri: `http://localhost:5000/api/puzzles/solvers/?id=${req.body.puzzleid}&solver=${req.body.username}&counter=${req.body.elo}`,
                     body: '',
                     method: 'POST',
                     headers: {

@@ -262,6 +262,14 @@ p span {
 	color: black;
 }
 
+#credentials button{
+	color: #951C49;
+}
+
+#credentials label {
+	text-align: right;
+}
+
 /* CONGRATULATIONS*/
 
 #congratulations a{
@@ -302,6 +310,10 @@ p span {
 	margin-top: 30px;
 	margin-bottom: 10px;
 	font-size: 1.2em;
+}
+
+#success input {
+	border: 1px solid #951C49;
 }
 
 #rating {
@@ -358,10 +370,16 @@ p span {
 }
 
 #insertResponseUrl {
+	text-align: right;
 	cursor: pointer;
-	text-decoration: underline;
 	font-weight: bold;
+	margin-top: 5px;
 }
+#insertResponseUrl a {
+	padding: 0 5px 0 5px;
+	margin: 5px 0 5px 0px;
+}
+
 
 #insertResponseUrl a:hover{
 	background-color: #e7e7e7;
@@ -561,6 +579,9 @@ p span {
 	body {
 	    font-size: 12px;
 	}
+	#editor #status {
+		font-size: 10px;
+	}
 	#dropdownMenuButton {
 		font-size: 12px;
 	}
@@ -634,6 +655,9 @@ p span {
 	}
 	body {
 	    font-size: 12px;
+	}
+	#editor #status {
+		font-size: 8px;
 	}
 	#dropdownMenuButton {
 		font-size: 12px;
@@ -722,5 +746,8 @@ p span {
 	}
 	.form-control {
 		font-size: 12px;
+	}
+	#credentials label {
+		text-align: left;
 	}
 }
