@@ -223,7 +223,9 @@ p span {
 	padding-bottom: 20px;
 	color: #951C49;
 	background-color: #ffffce;
+	padding-right: 5px;
 }
+
 
 #dropdownMenuButton {
 	margin-bottom: 20px;
@@ -252,6 +254,11 @@ p span {
 	text-align: right;
 }
 
+#else {
+	color: #2e8500;
+	font-weight: bold;
+}
+
 /*CREDENTIALS*/
 
 #credentials {
@@ -268,6 +275,12 @@ p span {
 
 #credentials label {
 	text-align: right;
+}
+
+#credentials-header h2 {
+	text-align: center;
+	font-weight: bold;
+	color: #2e8500;
 }
 
 /* CONGRATULATIONS*/
@@ -592,6 +605,9 @@ p span {
 	.form-control {
 		font-size: 12px;
 	}
+	#credentials-header h2 {
+		font-size: 20px;
+	}
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -676,6 +692,9 @@ p span {
 	#eloChange {
 		font-size: 0.7em;
 	}
+	#credentials-header h2 {
+		font-size: 20px;
+	}
 }
 
 @media (max-width: 575px) {
@@ -749,5 +768,8 @@ p span {
 	}
 	#credentials label {
 		text-align: left;
+	}
+	#credentials-header h2 {
+		font-size: 20px;
 	}
 }

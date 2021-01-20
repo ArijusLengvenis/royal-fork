@@ -349,6 +349,8 @@ function doneContent(name, fen, id, pgn, bool, orient, username, notSolvedBy, no
     document.getElementById('puzzle-solved').classList.remove('d-none');
     document.getElementById("comments").classList.remove('d-none');
     document.getElementById('status').classList.add('d-none');
+    document.getElementById("hint").classList.add('d-none');
+    document.getElementById('solve').classList.add('d-none');
 
     let change = null;
     if (puzzleDone && notSolvedBy && notSamePerson) {

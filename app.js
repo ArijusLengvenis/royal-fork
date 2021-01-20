@@ -151,12 +151,16 @@ app.get('/solver/', (req, res) => {
 	//has been solved before and if tthere is an ELO counter - store it there as well.
 	let done = {
 		done: false,
-		counter: 'null'
+		counter: 'null',
+		id: null
 	};
 	if(req.query.done === "true") {
 		done.done = true;
 		if (req.query.counter) {
 			done.counter = parseInt(req.query.counter);
+		}
+		if (req.query.commentid) {
+			done.id = req.query.commentid;
 		}
 	}
 
@@ -240,9 +244,15 @@ app.get('/editor/',
 	require('connect-ensure-login').ensureLoggedIn(),
 	(req, res) => {
 		//Only enterable if logged in.
+		let load = {}
+		if (req.query.fen) {
+			load.fen = req.query.fen;
+			load.first = req.query.first;
+		}
 		res.render('editor', {
 			puzzles,
-			user: req.user
+			user: req.user,
+			load: load
 	});
 })
 

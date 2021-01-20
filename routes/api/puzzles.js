@@ -10,7 +10,7 @@ let p_idx = puzzles.length + 1;
 router.post('/add-puzzle', function(req, res) {
     let error = {
         msg: "empty error",
-        url: "/editor"
+        url: `/editor/?fen=${req.body.fen}&first=${req.body.first}`
     };
     if (!req.body.history) {
         error.msg = "Invalid position!";
@@ -42,6 +42,7 @@ router.post('/add-puzzle', function(req, res) {
     }
     if (!newPuzzle.creator) {
         error.msg = "Please log in!";
+        error.url = "/login/";
         return res.status(403).render('error', { error: error });
     }
     if (!newPuzzle.fen || !newPuzzle.final_fen || !newPuzzle.first_move || !newPuzzle.pgn) {
@@ -180,7 +181,7 @@ router.post('/add-comment/:id', function(req, res) {
             if (puzzles[i].id === parseInt(req.params.id)) {
                 newComment.id = puzzles[i].comments.length + 1;
                 puzzles[i].comments.push(newComment);
-                res.redirect(`/solver/?id=${parseInt(req.params.id)}&done=${true}`);
+                res.redirect(`/solver/?id=${parseInt(req.params.id)}&done=${true}&commentid=${newComment.id}`);
                 break;
             }
         }      
@@ -219,7 +220,7 @@ router.post('/comment/add-response', function(req, res) {
                         if (puzzles[i].comments[j].id === parseInt(req.body.commentid)) {
                             newResponse.id = puzzles[i].comments[j].responses.length + 1;
                             puzzles[i].comments[j].responses.push(newResponse);
-                            res.redirect(`/solver/?id=${parseInt(req.body.puzzleid)}&done=${true}`);
+                            res.redirect(`/solver/?id=${parseInt(req.body.puzzleid)}&done=${true}&commentid=${puzzles[i].comments[j].id}`);
                             break;
                         }
                     }    

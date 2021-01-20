@@ -41,52 +41,56 @@
         </div>
     </div>
     <script>let username = '{{user.username}}'</script>
-    {{#each puzzles_clone}} 
-        <div class="container" id="forum">
-            <a href="/solver/?id={{this.id}}" id="segment{{this.id}}">
-                <div class="row undone defaultThread">
-                    <div id="board" class="col-lg-4 col-md-4">
-                        <div id="{{this.id}}" style="width: 100%"></div>
+    {{#if puzzles_clone}}
+        {{#each puzzles_clone}} 
+            <div class="container" id="forum">
+                <a href="/solver/?id={{this.id}}" id="segment{{this.id}}">
+                    <div class="row undone defaultThread">
+                        <div id="board" class="col-lg-4 col-md-4">
+                            <div id="{{this.id}}" style="width: 100%"></div>
+                        </div>
+                        <div id="thread" class="col-lg-4 col-md-4">
+                            <h4>{{this.title}}</h4>
+                            <h4 class="doneAdd"></h4>
+                        </div>
+                        <div id="thread" class="col-lg-4 col-md-4">
+                            <h5>by {{this.creator}}</h5>
+                            <hr class="d-md-none">
+                        </div>
+                        <div id="bottom" class="col-lg-4 col-md-4 mt-1">
+                            <h5>{{this.first_move}} to move</h5>
+                        </div>
+                        <div id="bottom" class="col-lg-4 col-md-4 mt-2">
+                            <span>Rated: </span>{{this.rating}} ELO
+                        </div>
+                        <div id="bottom" class="col-lg-4 col-md-4 mt-2 mb-2">
+                            <span>Has been completed: {{this.completed}} times.</span>
+                        </div>
                     </div>
-                    <div id="thread" class="col-lg-4 col-md-4">
-                        <h4>{{this.title}}</h4>
-                        <h4 class="doneAdd"></h4>
-                    </div>
-                    <div id="thread" class="col-lg-4 col-md-4">
-                        <h5>by {{this.creator}}</h5>
-                        <hr class="d-md-none">
-                    </div>
-                    <div id="bottom" class="col-lg-4 col-md-4 mt-1">
-                        <h5>{{this.first_move}} to move</h5>
-                    </div>
-                    <div id="bottom" class="col-lg-4 col-md-4 mt-2">
-                        <span>Rated: </span>{{this.rating}} ELO
-                    </div>
-                    <div id="bottom" class="col-lg-4 col-md-4 mt-2 mb-2">
-                        <span>Has been completed: {{this.completed}} times.</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <script> 
-            displayBoardImage('{{this.id}}','{{this.fen}}', false, '{{this.first_move}}');
-            solversTemp = [];
-            if (username) {            
-                {{#each this}}
-                    {{#if this}}
-                        if ('solvers' === '{{@key}}') {
-                            {{#each this}}
-                                solversTemp.push({ by: '{{this.by}}' });
-                            {{/each}}
-                        }
-                    {{/if}}
-                {{/each}}
-                forumThreadCheck(username,'{{this.creator}}', solversTemp);
-            }
-            document.querySelector('.undone').classList.remove('undone');
-            document.querySelector('.doneAdd').classList.remove('doneAdd');
-        </script>
-    {{/each}}
+                </a>
+            </div>
+            <script>
+                displayBoardImage('{{this.id}}','{{this.fen}}', false, '{{this.first_move}}');
+                solversTemp = [];
+                if (username) {            
+                    {{#each this}}
+                        {{#if this}}
+                            if ('solvers' === '{{@key}}') {
+                                {{#each this}}
+                                    solversTemp.push({ by: '{{this.by}}' });
+                                {{/each}}
+                            }
+                        {{/if}}
+                    {{/each}}
+                    forumThreadCheck(username,'{{this.creator}}', solversTemp);
+                }
+                document.querySelector('.undone').classList.remove('undone');
+                document.querySelector('.doneAdd').classList.remove('doneAdd');
+            </script>
+        {{/each}}
+    {{else}}
+        <div class="text-center mt-3 mb-3" id="else">There are no puzzles of this type available!</div>
+    {{/if}}
     <script>
         advancedFilter('{{user.username}}')
         linkToEditor('{{user.username}}')

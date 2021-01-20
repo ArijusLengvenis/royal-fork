@@ -59,7 +59,7 @@
                 {{#each one.comments}}
                     <div id="full-comment">
                         <div id="comment-author">by {{this.author}}:</div>
-                        <div id="comment" class="ml-3">{{this.comment}}</div>
+                        <div id="comment" class="ml-3"><div id="comment{{this.id}}">{{this.comment}}</div></div>
                         <div id="insertResponseUrl" class="undone"></div>
                     </div>
                     <script>
@@ -75,7 +75,7 @@
                             {{/each}}
                         {{/if}}
                     {{/each}}
-            {{/each}}
+                {{/each}}
             {{else}}
                 <div>No comments have been written.</div>
             {{/if}}
@@ -115,6 +115,9 @@
             touch = true;
             event.preventDefault();
             }, { passive: false });
+            {{#if done.id}}
+                window.location = ('#comment{{done.id}}');
+            {{/if}}
         </script>
     </div>
 </div>
