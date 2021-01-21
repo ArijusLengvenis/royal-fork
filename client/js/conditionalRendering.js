@@ -193,7 +193,7 @@ function insertResponseUrl(puzzleid, commentid, username) {
 
 function responseText(puzzleid, commentid, id, username) {
     id = "." + id;
-    document.querySelector(`${id}`).innerHTML = `<form action="/api/puzzles/comment/add-response" method="POST"><textarea class="form-control mt-2" rows="2" name="response" placeholder="I know, right?"></textarea><input class="d-none" name="puzzleid" value="${puzzleid}"><input class="d-none" name="commentid" value="${commentid}"><input class="d-none" name="author" value="${username}">&nbsp;<button class="mt-2 mb-2 ml-2" type="submit" value="Reply to comment">Reply</button></form>`;
+    document.querySelector(`${id}`).innerHTML = `<form action="/api/puzzles/comment/add-response" method="POST"><textarea class="form-control mt-2" rows="2" name="response" placeholder="I know, right?"></textarea><input class="d-none" name="puzzleid" value="${puzzleid}"><input class="d-none" name="commentid" value="${commentid}"><input class="d-none" name="author" value="${username}">&nbsp;<button class="mt-2 mb-2 ml-2 mr-2" type="submit" value="Reply to comment">Reply</button></form>`;
 }
 
 //FORUM THREAD BACKGROUND COLOUR CHANGER

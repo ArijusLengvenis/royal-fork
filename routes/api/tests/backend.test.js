@@ -101,6 +101,17 @@ describe("Test the credentials page", () => {
             done();
         });
     });
+
+    test("It should throw an error because of # symbol in username", done => {
+        request(app).post("/api/users/").send({
+            username: "Arijus#",
+            password: "123",
+            password2: "123"
+        }).then(response => {
+            expect(response.statusCode).toBe(400);
+            done();
+        });
+    });
 });
 
 describe("Test the solver page", () => {

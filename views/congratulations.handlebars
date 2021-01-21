@@ -26,6 +26,9 @@
           </div>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-5 text-center">
             <form action="/api/puzzles/delete-puzzle/{{one.id}}" method="POST">
+              <input class="d-none" value="{{user.username}}" name="username">
+              <input class="d-none" value="{{one.creator}}" name="creator">
+              <input class="d-none" value="{{one.title}}" name="title">
               <button type="submit" value="Delete created puzzle">Lastly, if you are unhappy with the result, click here to delete it</button>
               <p class="text-center"><span>*WARNING*</span> this cannot be undone</p>
             </form>

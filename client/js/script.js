@@ -344,8 +344,11 @@ function doneContent(name, fen, id, pgn, bool, orient, username, notSolvedBy, no
     document.getElementById('progress').textContent = 'Congratulations!';
     document.querySelector('#ruler-for-solved1').classList.remove('d-none');
     document.querySelector('#ruler-for-solved2').classList.remove('d-none');
+    document.querySelector('#ruler-for-solved3').classList.remove('d-none');
+    document.querySelector('#ruler-for-solved4').classList.remove('d-none');
     document.getElementById('progress').classList.add('gold');
-    document.getElementById('counterBtn').classList.remove('d-none');
+    document.querySelector('#counterBtn').classList.remove('d-none');
+    document.querySelector('#counterBtn1').classList.remove('d-none');
     document.getElementById('puzzle-solved').classList.remove('d-none');
     document.getElementById("comments").classList.remove('d-none');
     document.getElementById('status').classList.add('d-none');

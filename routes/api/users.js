@@ -21,6 +21,12 @@ router.post('/', function(req, res) {
         error.msg = "Please include a valid username and password!";
         return res.status(400).render('error', { error: error });
     }
+    for (let i = 0; i < newUser.username.length; i++) {
+        if (newUser.username[i] === '#') {
+            error.msg = "Please include a valid username and password!";
+            return res.status(400).render('error', { error: error });
+        }
+    }
     if (newUser.password !== req.body.password2) {
         error.msg = "Passwords do not match!";
         return res.status(400).render('error', { error: error });
@@ -33,7 +39,7 @@ router.post('/', function(req, res) {
     })
 
     users.push(newUser);
-    res.redirect('/login/');
+    res.redirect('/');
 });
 
 //Update ELO rating after solving a puzzle

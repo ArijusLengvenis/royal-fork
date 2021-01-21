@@ -387,16 +387,31 @@ p span {
 	cursor: pointer;
 	font-weight: bold;
 	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
 }
 #insertResponseUrl a {
 	padding: 0 5px 0 5px;
 	margin: 5px 0 5px 0px;
 }
 
+#btnRight {
+	margin-right: 68%;
+}
 
 #insertResponseUrl a:hover{
 	background-color: #e7e7e7;
 	cursor: pointer;
+}
+
+#counterBtn, #counterBtn1 {
+	background-color: #fce988;
+	border: 1px solid #951C49;
+	padding: 8px;
+}
+
+#counterBtn:hover, #counterBtn1:hover {
+	background-color: #e7e7e7;
 }
 
 /*EDITOR*/
@@ -522,6 +537,9 @@ p span {
 	.form-control {
 		font-size: 16px;
 	}
+	#btnRight {
+		margin-right: 61%;
+	}
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -607,6 +625,9 @@ p span {
 	}
 	#credentials-header h2 {
 		font-size: 20px;
+	}
+	#btnRight {
+		margin-right: 60%;
 	}
 }
 
@@ -695,6 +716,9 @@ p span {
 	#credentials-header h2 {
 		font-size: 20px;
 	}
+	#btnRight {
+		margin-right: 45%;
+	}
 }
 
 @media (max-width: 575px) {
@@ -771,5 +795,8 @@ p span {
 	}
 	#credentials-header h2 {
 		font-size: 20px;
+	}
+	#btnRight {
+		margin-right: 40px;
 	}
 }

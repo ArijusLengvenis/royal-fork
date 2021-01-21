@@ -18,11 +18,11 @@ const puzzles = [
         ],
         comments: [
             { id: 1, comment: "This is a comment", author: "Arijus", responses: [
-                { id: 1, response: "Haha, funny", author: "Arijus"}
-            ]},
+                { id: 1, response: "Haha, funny", author: "Arijus", date: 'Thu, 21 Jan 2021 08:54:57 '}
+            ], date: 'Thu, 21 Jan 2021 08:54:57 '},
             { id: 2, comment: "This is another comment", author: "anonymous", responses: [
-                { id: 1, response: "Haha, funny", author: "Arijus"}
-            ]}
+                { id: 1, response: "Haha, funny", author: "Arijus", date: 'Thu, 21 Jan 2021 08:54:57 '}
+            ], date: 'Thu, 21 Jan 2021 08:54:57 '}
         ],
         solvers: [
             { by: "Curlio"}
@@ -86,11 +86,11 @@ const puzzles = [
         ],
         comments: [
             { id: 1, comment: "This is a comment", author: "anonymous", responses: [
-                { id: 1, response: "Haha, funny", author: "Arijus"}
-            ]},
+                { id: 1, response: "Haha, funny", author: "Arijus", date: 'Thu, 21 Jan 2021 08:54:57 '}
+            ], date: 'Thu, 21 Jan 2021 08:54:57 '},
             { id: 2, comment: "This is another comment", author: "anonymous", responses: [
-                { id: 1, response: "Haha, funny", author: "Arijus"}
-            ]}
+                { id: 1, response: "Haha, funny", author: "Arijus", date: 'Thu, 21 Jan 2021 08:54:57 '}
+            ], date: 'Thu, 21 Jan 2021 08:54:57 '}
         ],
         solvers: [
             { by: "Arijus Lengvenis" }

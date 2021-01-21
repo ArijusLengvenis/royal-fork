@@ -138,9 +138,22 @@ app.get('/', (req, res) => {
 	//Create a clone object of all of the Puzzles, which abides by the filtering and sorting options selected.
 	let puzzles_clone = partitionIndex(`${JSON.stringify(puzzles)}`, limit.sort, limit.title, limit.creator, limit.low, limit.high, limit.solved, limit.yours, req.user);
 	
+	let redirect = {};
+	if (req.query.redirect) {
+		redirect.id = req.query.redirect;
+	}
+
+	let deleted = {};
+	if (req.query.deleted) {
+		deleted.bool = true;
+		deleted.title = req.query.title;
+	}
+
 	res.render('index', {
 		puzzles_clone,
-		user: req.user
+		user: req.user,
+		redirect: redirect,
+		deleted: deleted
 	});
 });
 

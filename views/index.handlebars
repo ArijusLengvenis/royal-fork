@@ -4,7 +4,9 @@
 <div id="main-content">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center"> 
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <h1 class="d-none mb-2" id="deletedNotify"></h1>
+                <hr class="d-none" id="hrDeleted">
                 <div id="link-to-creator" class="text-center"></div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4" id="index-settings"> 
@@ -39,7 +41,7 @@
                 
             </div>
         </div>
-    </div>
+</div>
     <script>let username = '{{user.username}}'</script>
     {{#if puzzles_clone}}
         {{#each puzzles_clone}} 
@@ -92,7 +94,18 @@
         <div class="text-center mt-3 mb-3" id="else">There are no puzzles of this type available!</div>
     {{/if}}
     <script>
+        {{#if redirect.id}}
+            window.location = ('#segment{{redirect.id}}');
+        {{/if}}
         advancedFilter('{{user.username}}')
         linkToEditor('{{user.username}}')
+        {{#if deleted.bool}}
+            let title = '{{deleted.title}} was successfully deleted!'
+            title = title.replace('_hashtag_', '#');
+            title = title.replaceAll('_', ' ');
+            document.getElementById('deletedNotify').innerHTML = `${title}`;
+            document.getElementById('deletedNotify').classList.remove('d-none');
+            document.getElementById('hrDeleted').classList.remove('d-none');
+        {{/if}}
     </script>
 </div>

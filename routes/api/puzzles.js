@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const puzzles = require('../../client/json/Puzzles');
+const request = require('request');
 
 let p_idx = puzzles.length + 1;
 
@@ -61,43 +62,60 @@ router.post('/add-puzzle', function(req, res) {
 });
 
 //delete puzzle
-router.delete('/delete-puzzle/:id', function(req, res) {
-    const found = puzzles.some(puzzle => puzzle.id === parseInt(req.params.id));
+router.delete('/delete-puzzle/', function(req, res) {
+    let error = {
+        msg: "empty error",
+        url: '/'
+    };
+    if (!req.body.username || !req.body.creator || req.body.username !== req.body.creator) {
+        error.msg = 'Invalid authentification!';
+        return res.status(400).render('error', { error: error });
+    }
+    const found = puzzles.some(puzzle => puzzle.id === parseInt(req.body.id));
 		if (found) {
             for (let i = 0; i < puzzles.length; i++) {
-                if (puzzles[i].id === parseInt(req.params.id)) {
-                    //puzzles = puzzles.filter(puzzle => puzzle !== puzzles[i]);
-                    res.redirect('/');
+                if (puzzles[i].id === parseInt(req.body.id)) {
+                    for (let j = i; j < puzzles.length-1; j++) {
+                        puzzles[j] = puzzles[j+1];
+                    }
+                    puzzles.splice(puzzles.length-1, 1);
+                    let url = `/?deleted=true&title=${req.body.title}`;
+                    url = url.replace(/\s/g, '_');
+                    url = url.replace('#', '_hashtag_');
+                    res.redirect(`${url}`);
                     break;
                 }
             }
 			
 		}
 		else {
-			return res.status(400).json({ msg: `No puzzle with the id ${parseInt(req.params.id)}`});
+			error.msg = `No puzzle with the id ${parseInt(req.body.id)}!`;
+            return res.status(400).render('error', { error: error });
 		}
 })
 
 //temporary route for delete puzzle
 router.post('/delete-puzzle/:id', function(req, res) {
-    let error = {
-        msg: "empty error",
-        url: `/congratulations/${req.params.id}`
-    };
-    const found = puzzles.some(puzzle => puzzle.id === parseInt(req.params.id));
-		if (found) {
-            for (let i = 0; i < puzzles.length; i++) {
-                if (puzzles[i].id === parseInt(req.params.id)) {
-                    res.send(puzzles.filter(puzzle => puzzle !== puzzles[i]));
-                    break;
-                }
-            }
-			
-		}
-		else {
-			error.msg = `No puzzle with the id ${parseInt(req.params.id)}!`;
-            return res.status(400).render('error', { error: error });
-		}
+    let body = {
+        id: req.params.id,
+        username: req.body.username,
+        creator: req.body.creator,
+        title: req.body.title
+    }
+    let clientServerOptions = {
+        uri: `http://localhost:5000/api/puzzles/delete-puzzle`,
+        body: `${JSON.stringify(body)}`,
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    request(clientServerOptions, () => {
+        let url = `/?deleted=true&title=${req.body.title}`;
+        url = url.replace(/\s/g, '_');
+        url = url.replace('#', '_hashtag_');
+        res.redirect(`${url}`);
+    });
 })
 
 //update solvers and counter
@@ -158,6 +176,9 @@ router.post('/incr/:id', function(req, res) {
 
 //add comment
 router.post('/add-comment/:id', function(req, res) {
+    let date = new Date();
+    date = date.toUTCString();
+    date = date.replace('GMT', '');
     let error = {
         msg: "empty error",
         url: `/solver/?id=${req.params.id}`
@@ -166,7 +187,8 @@ router.post('/add-comment/:id', function(req, res) {
         id: 0,
         comment: req.body.write_comment,
         author: req.body.author || "anonymous",
-        responses: []
+        responses: [],
+        date: date
     }
 
     if (!newComment.comment) {
@@ -193,14 +215,18 @@ router.post('/add-comment/:id', function(req, res) {
 })
 
 router.post('/comment/add-response', function(req, res) {
+    let date = new Date();
+    date = date.toUTCString();
+    date = date.replace('GMT', '');
     let error = {
         msg: "empty error",
-        url: `/solver/?id=${req.params.id}`
+        url: `/solver/?id=${req.params.id}`,
     };
     let newResponse = {
         id: 0,
         response: req.body.response,
-        author: req.body.author || "anonymous"
+        author: req.body.author || "anonymous",
+        date: date
     }
 
     if (!newResponse.response) {
