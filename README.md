@@ -29,7 +29,7 @@ includes functionality such as adding a puzzle to the array of puzzles, modifyin
 
 # 1. Create and add a new puzzle to the forum with "/add-puzzle" (POST)
 
-requires the user to be signed in, a valid postition to be created on the chessboard, a valid move order (ie, an odd number of moves) to be made and a valid rating to be provided,
+requires the user to be signed in, a valid postition to be created on the chessboard, a valid move order (ie, an odd number of moves) and a valid rating to be provided,
 
 A user can also choose to include their own title for the puzzle, otherwise the title will be made from the id of the puzzle.
 
@@ -39,7 +39,7 @@ After the request was made the user is redirected to the congratulations page, w
 
 # 2. Delete a puzzle with "/delete-puzzle/:id" (DELETE)
 
-requires the user username as well as the creator of the puzzle for verification as well as to provide the puzzle id.
+requires the user username as well as the creator of the puzzle for verification as well as to provide a valid puzzle id.
 
 The deletion methos goes in two steps - the first one being the delivery of the required ids to the server and afterwards forwarding the verification information to a DELETE request.
 
@@ -59,7 +59,7 @@ After a user has been added to the list, they will not be ever added again or re
 
 # 4. Update the the counter which indicates how many times the puzzle was completed with "/incr/:id" (POST)
 
-requires the id of the puzzle.
+requires a valid id of a puzzle.
 
 Simply finds the puzzle and increments the counter to indicate, that the puzzle was solved.
 
@@ -67,7 +67,7 @@ Does not require the user to be signed in to work.
 
 # 5. Add a comment to a specific puzzle with "/add-comment/:id" (POST)
 
-requires the id of the puzzle.
+requires a valid id of a puzzle.
 
 Adds a comment to the solver page of the puzzle along with the meta data like when the comment was posted and by who. Also has a response object associated with the specific comment.
 
@@ -75,7 +75,7 @@ It can be done both signed in and anonymously.
 
 # 6. Add a response to a specific comment in a specific puzzle with "/comment/add-response" (POST)
 
-requires the id of the puzzle as well as the comment.
+requires a valid id of a puzzle as well as a valid id of a comment.
 
 Adds a reply comment directly attached to the comment in the solver page of the puzzle along with the meta data like when the comment was posted and by who. Multiple replies can be written by one or multiple people.
 
@@ -99,6 +99,86 @@ requires the user to be logged in and a puzzle to be solved correctly.
 This updates the user's ELO by either increasing or decreasing it by a margin provided by an algorithm in the frontend.
 
 Used in combination with adding the user as a solver of a particular puzzle.
+
+# render pages/authentification routes
+
+# 1. Render the home page with "/" (GET)
+
+Accepts a large variety of query strings, such as filtering options, sorting options, redirect variables and deleted puzzle notification information.
+
+It loads a fully functional forum hub page, where users are prompted to register or log in, create puzzles and solve any puzzles they like.
+
+The page is rendered with "index.handlebars" and does not require for the users to be signed in to use, except for some features, like that logged in users get notified for which puzzles they have already solved or made themselves, filtering options associated with this among other things.
+
+# 2. Render a puzzle solving page with "/solver/" (GET)
+
+requires a valid puzzle id.
+
+Can also accept query strings associated with the state of the puzzle (solved or not) as well as a value indicating the ELO change of the user solving it.
+
+It loads a fully functional puzzle solving page, with an interactable chessboard, a move history wall, hint and solve puzzle buttons and a fully-fleshed out comment section among other things.
+
+Users have the ability to spend as much time as they want on solving puzzles, when they're stuck they can ask for a "hint" which will highlight the correct squares to move to, they can simply click "solve puzzle" to go straight into the comment section (which is blocked until the user solves the puzzle in case of spoilers) to share and discuss about that specific position. Each comment has their own replies associated with them as well.
+
+The page is rendered with "solvers.handlebars" and does not require for users to be signed in to use, but when the user is logged in, the page keeps track of the errors the person made, the number of hints they used and once the puzzle is finished calculates the ELO rating change and updates it immediately. Furthermore, the comment section also signs comments made by the user with the user's name, where otherwise it would sign as "anonymous".
+
+# 3. Render the register page with "/register/" (GET)
+
+It loads a simple and intuitive form which asks for a username, password and a repeat of the password to prevent unwanted mistypes.
+
+The page is rendered with "credentials.handlebars" and does not require the users to be signed in to use.
+
+# 4. Render the login page with "/login/" (GET)
+
+It loads a simple and intuitive form which asks for a username and a password. Used for authentication.
+
+The page is rendered with "login.handlebars" and does not require the users to be signed in to use.
+
+# 5. Access the authentication route with "/login/" (POST)
+
+requires a username and password, which are present in the users database.
+
+With the use of Express middleware this api serves the purpose of authenticating a user who wants to log in.
+
+More details about this API can be found on: http://www.passportjs.org/packages/passport-local/.
+
+# 6. Logout from an account with "/logout/" (GET)
+
+requires the user to be logged in.
+
+With the use of Express middleware this api serves to deserialize the user from the website and return back to the state of not-logged in.
+
+Redirects to the homepage.
+
+# 7. Render the puzzle editor page with "/editor/" (GET)
+
+requires the user to be signed in to access.
+
+It loads a fully functional puzzle creating page, which allows the user to quickly and intuitively assemble basically any possible chess position that exists.
+
+The page is divided into 2 parts. One focuses on assembling the starting board, where then the user can drag the pieces onto the board to set up any postion they please, along with setting the rules such as who is first to move and who has and does not have castling rites. There are buttons like "Clear position" and "Flip board position" to aid them in creating.
+
+Once the user is happy with their initial position and have set the necessary rules, they can press the "Set position" button and proceed to the "Move maker" phase, where the chessboard now becomes one which only follows the strict rules of chess and as such the move order can be assembled. The user can also then access a button labeled "Undo" to undo the previously made move if a mishap had occured. Once the user is happy with the move order of the puzzle, they can set a title for it if they please, they must give it an ELO rating, so that other users solving this puzzle would get a fair assumption at the difficulty of the puzzle and then finally they can submit.
+
+The page is rendered with "editor.handlebars".
+
+# 8. Render the congratulating page for creating a puzzle with "/congratulations/:id" (GET)
+
+requires the user to be signed in and a valid puzzle id.
+
+It loads a congratulations page, which showcases the puzzle that the user had just created.
+
+When viewing the puzzle information, the user has a choice of either going back into the editor and creating another puzzle, going back to the forum or if they are not happy with the puzzle that they have assembled - they can delete it entirely.
+
+The page is rendered with "congratulations.handlebars".
+
+# 9. Render a custom 404 page with "/*" (GET)
+
+It loads a simple 404 page which serves to convey the information, that the user has reached a link, which does not exist.
+
+A similar page is loaded when an error occurs during the operation of any other api mentioned previously, which clearly states the problem that occured in the server and provides an appropriate link back with each instance.
+
+These pages are rendered with "404_error_template.handlebars" as well as "error.handlebars" respectively.
 
 # Created with the use of the following apis:
 
