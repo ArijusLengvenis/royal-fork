@@ -116,10 +116,25 @@ app.get('/', (req, res) => {
 		title: req.query.filterTitle,
 		creator: req.query.filterCreator,
 		low: parseInt(req.query.filterRatingLow),
-		high: parseInt(req.query.filterRatingHigh),
-		solved: `${req.query.solvedOptions}`,
-		yours: `${req.query.creatorOptions}`
+		high: parseInt(req.query.filterRatingHigh)
 	};
+
+	if (req.query.solvedOptions === 'true') {
+		limit.solved = 'true';
+		limit.yours = '';
+	}
+	else if (req.query.solvedOptions === 'false') {
+		limit.solved = 'false';
+		limit.yours = '';
+	}
+	else if (req.query.solvedOptions === 'trueC') {
+		limit.yours = 'true';
+		limit.solved = '';
+	}
+	else if (req.query.solvedOptions === 'falseC') {
+		limit.yours = 'false';
+		limit.solved = '';
+	}
 
 	//Check if the user is logged in.
 	if (!req.user) {

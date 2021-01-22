@@ -212,7 +212,8 @@ p span {
 }
 
 #sortBtn {
-	margin-right: 100px;
+	margin-right: auto;
+	margin-left: auto;
 	padding-left: 10px;
 	padding-right: 10px;
 }
@@ -226,6 +227,9 @@ p span {
 	padding-right: 5px;
 }
 
+#advancedFilter {
+	text-align: center;
+}
 
 #dropdownMenuButton {
 	margin-bottom: 20px;

@@ -8,8 +8,6 @@ Users can jump in the forum and start exploring the puzzles they wish to solve. 
 
 The UX is intuitive, simple, yet informative and adapts to the user. Works well both on mobile and desktop.
 
-Later implementations could involve a leaderboard for users to see where they stand with regards to their rating, puzzles solved and created as well as how much time they were registered on the website for.
-
 # API shortcuts for setting up and testing purposes:
 
 # npm install
@@ -179,6 +177,30 @@ It loads a simple 404 page which serves to convey the information, that the user
 A similar page is loaded when an error occurs during the operation of any other api mentioned previously, which clearly states the problem that occured in the server and provides an appropriate link back with each instance.
 
 These pages are rendered with "404_error_template.handlebars" as well as "error.handlebars" respectively.
+
+# Later implementations/improvements of the website could involve: 
+
+* Making a leaderboard for users to see where they stand against others with regards to their rating, puzzles solved and created.
+
+* Integrating a chess engine to give live feedback and meaning behind the chess moves and see why the ones that were chosen were in fact the right moves.
+
+* Adding a live timer to when a user starts solving a problem to showcase how much time they took on it as well as if they took too long - take that into account when adjusting their ELO rating as well.
+
+* Ovehauling the move history wall on the solver page in a way that allows the creator of the puzzle to input comments under moves they choose to or even seperate variations to explain different ideas in complicated positions. The user then could click on any move on there and the board would assemble itself to that position and if a comment was available to go along with it, it would then be highlighted.
+
+* A more robust and secure authentication system, complete with an online database and a secure hashing function to hide password information. Also, add emails so that forgotten passwords would be addressed as well.
+
+* Add connectivity with Google, Facebook and Apple for quick, easy and secure sign ups for users.
+
+* A more complete comment section with a liking system, sorting of most liked ones to the top, spoiler shrouds, multiple layered responses, profanity filters, etc, all in the effort to make the forum more engaging and accessible.
+
+* Sounds, animations, glyphicons and loading screens to improve the UX when highlighting or moving through pages.
+
+* A more sophisticated algortihm to calculate ELO rating changes after solving puzzles.
+
+* The ability for users to add custom profile icons to their profiles.
+
+* Ambitious implementation: puzzle battles, to let users compete against one another to see who can solve more puzzles correctly in a given timeframe and post that on the leaderboard as well. Users can choose random opponents or challenge any chosen opponent through a search bar (or just do it alone to see how far they get). Note: requires a large backlog of puzzles to work properly.
 
 # Created with the use of the following apis:
 
