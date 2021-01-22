@@ -454,6 +454,10 @@ p span {
     width: 100%;
     position: fixed;
 }
+
+label span {
+	font-weight: bold;
+}
 /* ERROR */
 
 #error {

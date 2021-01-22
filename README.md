@@ -180,6 +180,8 @@ These pages are rendered with "404_error_template.handlebars" as well as "error.
 
 # Later implementations/improvements of the website could involve: 
 
+* Create a custom logo and make the general style of the website more unique.
+
 * Making a leaderboard for users to see where they stand against others with regards to their rating, puzzles solved and created.
 
 * Integrating a chess engine to give live feedback and meaning behind the chess moves and see why the ones that were chosen were in fact the right moves.
@@ -194,7 +196,7 @@ These pages are rendered with "404_error_template.handlebars" as well as "error.
 
 * A more complete comment section with a liking system, sorting of most liked ones to the top, spoiler shrouds, multiple layered responses, profanity filters, etc, all in the effort to make the forum more engaging and accessible.
 
-* Sounds, animations, glyphicons and loading screens to improve the UX when highlighting or moving through pages.
+* Sound effects, animations, glyphicons and loading screens to improve the UX when highlighting or moving through pages.
 
 * A more sophisticated algortihm to calculate ELO rating changes after solving puzzles.
 

@@ -12,15 +12,50 @@ describe("Test the root path", () => {
     });
 
     test("It should throw error if the lower bound for the rating is not an integer value", done => {
-        request(app).get('/?sortChoice=""&filterTitle=""&filterCreator=""&filterRatingLow=""&filterRatingHigh="a"&solvedOptions=""&creatorOptions=""').then(response => {
+        request(app).get('/?sortChoice=""&filterTitle=""&filterCreator=""&filterRatingLow=a&filterRatingHigh=&solvedOptions=""').then(response => {
             expect(response.statusCode).toBe(400);
             done();
         });
     });
 
     test("It should throw error if the upper bound for the rating is not an integer value", done => {
-        request(app).get('/?sortChoice=""&filterTitle=""&filterCreator=""&filterRatingLow=""&filterRatingHigh="a"&solvedOptions=""&creatorOptions=""').then(response => {
+        request(app).get('/?sortChoice=""&filterTitle=""&filterCreator=""&filterRatingLow=""&filterRatingHigh=a&solvedOptions=""').then(response => {
             expect(response.statusCode).toBe(400);
+            done();
+        });
+    });
+
+    test("It should return a filtered list by solved puzzles", done => {
+        request(app).get('/?sortChoice=""&filterTitle=""&filterCreator=""&filterRatingLow=&filterRatingHigh=&solvedOptions=true').then(response => {
+            expect(response.statusCode).toBe(200);
+            done();
+        });
+    });
+
+    test("It should return a filtered list by unsolved puzzles", done => {
+        request(app).get('/?sortChoice=""&filterTitle=""&filterCreator=""&filterRatingLow=&filterRatingHigh=&solvedOptions=false').then(response => {
+            expect(response.statusCode).toBe(200);
+            done();
+        });
+    });
+
+    test("It should return a filtered list by user created puzzles", done => {
+        request(app).get('/?sortChoice=""&filterTitle=""&filterCreator=""&filterRatingLow=&filterRatingHigh=&solvedOptions=trueC').then(response => {
+            expect(response.statusCode).toBe(200);
+            done();
+        });
+    });
+
+    test("It should return a filtered list of puzzles created by other users", done => {
+        request(app).get('/?sortChoice=""&filterTitle=""&filterCreator=""&filterRatingLow=&filterRatingHigh=&solvedOptions=falseC').then(response => {
+            expect(response.statusCode).toBe(200);
+            done();
+        });
+    });
+
+    test("It should focus on puzzle 2", done => {
+        request(app).get('/?deleted=true&redirect=2').then(response => {
+            expect(response.statusCode).toBe(200);
             done();
         });
     });
@@ -171,13 +206,6 @@ describe("Test the solver page", () => {
         });
     });
 
-    // test("It should response the POST method", done => {
-    //     request(app).post("/api/puzzles/delete-puzzle/").then(response => {
-    //         expect(response.statusCode).toBe(200);
-    //         done();
-    //     });
-    // });
-
     test("It should response the POST method for adding a comment on a specific puzzle", done => {
         request(app).post("/api/puzzles/add-comment/2").send({
             write_comment: "test1",
@@ -260,6 +288,13 @@ describe("Test the solver page", () => {
 describe("Test the editor page", () => {
     test("It should response the GET method for the editor page", done => {
         request(app).get("/editor/").then(response => {
+            expect(response.statusCode).toBe(302);
+            done();
+        });
+    });
+
+    test("It should response the GET method for the editor page when loading a fen", done => {
+        request(app).get("/editor/?fen=8/2R2pk1/6p1/6b1/6PP/3n2K1/8/8 b - - 0 1").then(response => {
             expect(response.statusCode).toBe(302);
             done();
         });

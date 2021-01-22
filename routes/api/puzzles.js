@@ -56,7 +56,6 @@ router.post('/add-puzzle', function(req, res) {
     }    
 
     puzzles.push(newPuzzle);
-    //console.log(newPuzzle);
     p_idx++;
     res.redirect(`/congratulations/${newPuzzle.id}`);
 });

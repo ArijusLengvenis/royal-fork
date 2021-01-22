@@ -39,7 +39,7 @@ router.post('/', function(req, res) {
     })
 
     users.push(newUser);
-    res.redirect('/');
+    res.redirect('/login/');
 });
 
 //Update ELO rating after solving a puzzle
