@@ -7,7 +7,8 @@
     "pre-test": "eslint .",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "start": "nodemon node server.js",
+    "start": "node server.js",
+    "dev-start": "nodemon node server.js",
     "build": "standard lib/chessboard.js && node scripts/build.js",
     "standard": "standard --fix lib/*.js website/js/*.js",
     "website": "node scripts/website.js"

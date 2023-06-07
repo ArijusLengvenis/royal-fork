@@ -33,28 +33,6 @@ app.use('/api/puzzles', require('./routes/api/puzzles'));
 app.use('/api/users', require('./routes/api/users'));
 
 //Set the Express rendering engine to use handlebars.
-//Handlebars are a concept which is used when one wants to incorporate templates in order to
-//save on writing redundant blocks of code. The templates are esentially composed of HTML code
-//interspersed with variables tagged with "{{}}" notation. These variables are called handlebars
-//or moustashes and in the middle of rendering the HTML template these handlebars are replaced
-//with their corresponding values, which are sent from the backend as an object.
-//For example, if we have the code:
-//
-//...
-//<h1>{{name.person}} wants to say Hello {{name.world}}!</h1>
-//...
-//
-//where the sent in object is:
-//
-//name = {
-// world: "World",
-// person: "Arijus"	
-//}
-//
-//Will in the end render as:
-//...
-//<h1>Arijus wants to say Hello World!</h1>
-//...
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
