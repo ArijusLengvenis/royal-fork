@@ -12,7 +12,7 @@ A feature-rich chess puzzle publishing and solving forum with a dynamic ELO rati
 - Mobile and Desktop friendly UI.
 - Jest tests for frontend and backend functionality.
 
-NOTE: this was my first project with HTML/CSS/JavaScript, so the design and UX of the app closely resenbles those from the 2010s.
+*NOTE:* this was my first project with HTML/CSS/JavaScript, so the design and UX of the app closely resenbles those from the 2010s.
 
 ## Installation & Usage
 Clone the repository and navigate to the project directory. Run the following commands:
@@ -36,7 +36,7 @@ Clone the repository and navigate to the project directory. Run the following co
 ### User Routes
 
 1. Add a new user: `POST /`
-2. Update a user's ELO rating: `POST /`
+2. Update a user's ELO rating: `POST /elo`
 
 ## Render Pages/Authentification Routes
 
