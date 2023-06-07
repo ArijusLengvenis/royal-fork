@@ -64,6 +64,6 @@ Clone the repository and navigate to the project directory. Run the following co
 - Enhanced ELO rating algorithm
 
 ## Technology Used
-- Passport-local by jaredhanson
-- Chessboardjs by oakmac
-- Chess.js by jhlywa
+- ![Passport-local by jaredhanson](https://github.com/jaredhanson/passport-local)
+- ![Chessboardjs by oakmac](https://github.com/oakmac/chessboardjs)
+- ![Chess.js by jhlywa](https://github.com/jhlywa/chess.js)
